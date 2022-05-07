@@ -12,7 +12,7 @@
     "devDependencies": {
         "@vue/compiler-sfc": "^3.2.29",
         "autoprefixer": "^10.4.7",
-        "axios": "^0.21",
+        "axios": "^0.21.4",
         "cypress": "^9.5.1",
         "laravel-echo": "^1.11.7",
         "laravel-mix": "^6.0.6",
@@ -31,6 +31,7 @@
         "dayjs": "^1.10.7",
         "vue": "^3.2.29",
         "vue-select": "^4.0.0-beta.3",
+        "vue3-charts": "^1.1.31",
         "vue3-select2-component": "^0.1.7",
         "ziggy-js": "^1.4.4"
     }

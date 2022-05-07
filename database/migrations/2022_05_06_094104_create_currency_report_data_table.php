@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('price', '10');
             $table->timestamps();
 
-            $table->foreign('currency_report_id')->references('id')->on('currency_report')->cascadeOnDelete();
+            $table->foreign('currency_report_id')->references('id')->on('currency_reports')->cascadeOnDelete();
         });
     }
 

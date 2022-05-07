@@ -24,21 +24,31 @@ class CurrencyReportPeriodPriceUpdate
 
     public function handle()
     {
+        $this->updateStatus('pending');
         $this->dataReceivedDates = $this->report->currency_report_data()->pluck('price_at')->toArray();
         $method_name = self::LOOKUP[$this->report->period];
         $this->pending = $method_name();
         $this->datesToProcess = extractDateForPriceNotReceivedYet($this->dataReceivedDates, $this->pending);
         $this->process();
+        $this->updateStatus('completed');
     }
 
     protected function process()
     {
         if (sizeof($this->datesToProcess) > 0) {
             foreach ($this->datesToProcess as $date) {
-                $data = ExchangeRatesDataApi::getPriceByDate($date, $this->report->secondary);
-                $this->report->storePriceData($this->report->secondary, $date, $data);
+                $data = ExchangeRatesDataApi::getPriceByDate($date, $this->report->symbol);
+                if ($data->success) {
+                    $this->report->storePriceData($this->report->symbol, $date, $data);
+                }
             }
         }
 
+    }
+
+    protected function updateStatus($status)
+    {
+        $this->report->status = $status;
+        $this->report->save();
     }
 }

@@ -11,7 +11,7 @@ class CurrencyReport extends Model
 
     protected $fillable = [
         'base',
-        'secondary',
+        'symbol',
         'period',
         'user_id'
     ];
@@ -23,7 +23,7 @@ class CurrencyReport extends Model
 
     public function currency_report_data(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(CurrencyReportData::class);
+        return $this->hasMany(CurrencyReportData::class)->orderBy('price_at', 'asc');
     }
 
     public function storePriceData($symbol, $date, $data)

@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->index();
             $table->string('base', 4);
-            $table->string('secondary', 4);
+            $table->string('symbol', 4);
             $table->integer('period');
+            $table->string('status', 10)->default('pending');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

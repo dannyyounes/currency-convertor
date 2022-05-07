@@ -6,7 +6,7 @@
     <h1 class="text-3xl">Report Display</h1>
 
     <div class="mt-5">
-        Price display for base currency {{ report.base }} against {{ report.secondary }}<p> <span v-text="showPeriodText(report.period)"></span></p>
+        Price display for base currency {{ report.base }} against {{ report.symbol }}<p> <span v-text="showPeriodText(report.period)"></span></p>
     </div>
 
     <div class="flex flex-col">
@@ -50,26 +50,18 @@
 
 import { computed } from "vue";
 import { usePage } from '@inertiajs/inertia-vue3'
+import CurrencyMixin from "../../Mixins/currency";
 
 export default {
-    name: "ReportDsiplay",
+    name: "ReportDisplay",
+    mixins: [CurrencyMixin],
     setup () {
         const report = computed(() => usePage().props.value.report)
 
         return { report }
     },
     methods: {
-        showPeriodText(period) {
-            if (period === 12) {
-                return "Monthly display of prices";
-            }
-            else if (period === 6) {
-                return "Weekly display of prices";
-            }
-            else if (period === 1) {
-                return "Daily Display of prices"
-            }
-        }
+
     }
 }
 </script>

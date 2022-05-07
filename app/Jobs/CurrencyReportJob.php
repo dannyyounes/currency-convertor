@@ -41,6 +41,9 @@ class CurrencyReportJob implements ShouldQueue
             $currency_report_process->handle();
         }
 
-        //CurrencyDataFetched::dispatch();
+        $this->report->status = "completed";
+        $this->report->save();
+
+        CurrencyDataFetched::dispatch($this->report);
     }
 }

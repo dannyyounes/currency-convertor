@@ -27,7 +27,7 @@ Route::post('password/reset', [PasswordResetController::class, 'update'])->name(
 Route::middleware('auth')->group(function () {
     Route::get('/', [CurrencyConvertorController::class, 'index'])->name('dashboard');
     Route::post('/convert', [CurrencyConvertorController::class, 'show'])->name('currencies.show');
-    Route::get('/report/show/{id}', [ReportController::class, 'show'])->name('report.show');
+    Route::get('/report/show/{currencyReport}', [ReportController::class, 'show'])->name('report.show');
     Route::post('/report/store/{user}', [ReportController::class, 'store'])->name('report.store');
 
     Route::resource('report', ReportController::class);

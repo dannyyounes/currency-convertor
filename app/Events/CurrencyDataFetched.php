@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\CurrencyReport;
 use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -15,16 +16,16 @@ class CurrencyDataFetched implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public User $user;
+    public CurrencyReport $report;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(CurrencyReport $report)
     {
-        $this->user = $user;
+        $this->report = $report;
     }
 
     /**

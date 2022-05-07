@@ -49,6 +49,6 @@ let echo = new Echo({
 
 echo.channel('conversion-complete')
     .listen('CurrencyDataFetched', (e) => {
-
+        document.getElementById('currency-'+e.report.id).innerHTML = e.report.status
     })
 
