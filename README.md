@@ -50,12 +50,41 @@ To execute events, we use the laravel web sockets by beyondco.  To start the web
 
 `php artisan websockets:serve`
 
+### Step 7: Running Scheduled Jobs
+To enable scheduled jobs to run every 15 minutes, we'll need to setup the cron jobs on the server to run every minute. To do this simply edit the crontab file as the user that the webserver is running as and add the following line to the file.
+
+Open the crontab file
+
+`crontab -e`
+
+Add the following line. Alter the project path to be your project path.
+
+`* * * * * cd /your-project-path && php artisan schedule:run >> /dev/null 2>&1`
+
+Scheduled jobs can be run manually by running the following command:
+
+`php artisan schedule:run`
+
 ### Configuration file
 
+There are two configuration options in the .env file that have to be altered. Most importantly the broadcast driver must be set to pusher so that events can be fired and received. Queue connection set it to redis so that background jobs can be run
 
+```
+BROADCAST_DRIVER=pusher
+QUEUE_CONNECTION=redis
+```
 
- 
+Pusher credentials must be set also. You may place random information for these config settings
+
+```
+PUSHER_APP_ID=five9 
+PUSHER_APP_KEY=key 
+PUSHER_APP_SECRET=secret 
+PUSHER_APP_CLUSTER=mt1
+```
+
 ### Web Resources
+``` 
 Laravel 9 - https://laravel.com/docs/9.x
 Vue 3 - https://vuejs.org/guide/introduction.html
 Inertia JS - https://inertiajs.com/
@@ -68,5 +97,6 @@ Beyondco web sockets - https://beyondco.de/docs/laravel-websockets/getting-start
 Laravel Horizon - https://laravel.com/docs/9.x/horizon
 Laravel Redis - https://laravel.com/docs/9.x/redis
 API Layer Market Data - https://apilayer.com/marketplace/description/exchangerates_data-api
+```
 
 
