@@ -53,7 +53,6 @@ export default {
         return {
             mainNavigation: [
                 {href: '/', label: 'Dashboard', icon: HomeIcon},
-                {href: '/report', label: 'Report', icon:CurrencyDollarIcon},
             ],
         };
     },

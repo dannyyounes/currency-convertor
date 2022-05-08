@@ -49,9 +49,6 @@
                         label="Confirm Password"
                         :error="form.errors.password_confirmation" />
                 </div>
-                <div>
-                    <BasePasswordStrengthIndicator v-model:modelValue="form.password"/>
-                </div>
 
                 <div class="mb-6">
                     <Button type="submit" class="submit" :disabled="form.processing">Register</Button>
@@ -69,7 +66,7 @@ import Button from "../../Shared/Button";
 
 export default {
     layout: null,
-    components: { BaseInput, Button, BasePasswordStrengthIndicator },
+    components: { BaseInput, Button },
     props: {
         enteredPassword: {
             type: String,
