@@ -25,3 +25,10 @@ Homestead.json
 .phpunit.result.cache
 .idea/vcs.xml
 public/mix-manifest.json
+.env.testing
+.idea/currency-convertor.iml
+.idea/php-test-framework.xml
+.idea/php.xml
+.idea/currency-convertor.iml
+.idea/php.xml
+.idea/currency-convertor.iml
