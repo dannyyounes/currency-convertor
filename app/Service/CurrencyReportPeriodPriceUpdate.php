@@ -7,9 +7,9 @@ use App\Service\Api\ExchangeRatesDataApi;
 class CurrencyReportPeriodPriceUpdate
 {
     const LOOKUP = [
-        12 => 'year',
-        6 => 'week',
-        1 => 'day'
+        12 => 'getLastTwelveEndOfMonthDatesBasedOnSelectedDate',
+        6 => 'getLast6MonthsEndOfWeekDatesBasedOnSelectedDate',
+        1 => 'getLast30DaysDatesBasedOnSelectedDate'
     ];
 
     public $pending;
