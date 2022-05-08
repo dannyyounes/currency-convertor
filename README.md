@@ -27,17 +27,30 @@ To install npm plugins, run the following command:
 `npm install`
 
 ### Step 3: Setup Database
-The next step is to setup the database tables. Run the following command:
+The next step is to setup the database tables. Run the following command from the application root:
 
 `php artisan migrate`
 
 ### Step 4: Sign up to Market Data Api and Setup
+To perform currency conversions, we use the website API Layer. We specifically use Exchanges Rates Data API https://apilayer.com/marketplace/description/exchangerates_data-api. You may sign up for free for this service. Simply copy your api key from your account settings and place it into the .env
 
+Add the following configuration:
+
+`DATA_EXCHANGE_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx <- Place your key here`
 
 ### Step 5: Start Horizon
+To run jobs in the application, the horizon application will need to be started. If you have supervisord setup, you may use this. The horizon queue will need to be run via Redis, please ensure that you have this setup. https://laravel.com/docs/9.x/redis
+
+To start the horizon queue, run the following command:
+
+`php artisan horizon`
 
 ### Step 6: Start Web sockets
+To execute events, we use the laravel web sockets by beyondco.  To start the web sockets service, simply run the following command:
 
+`php artisan websockets:serve`
+
+### Configuration file
 
 
 
