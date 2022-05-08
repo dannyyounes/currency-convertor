@@ -55,3 +55,18 @@ To execute events, we use the laravel web sockets by beyondco.  To start the web
 
 
  
+### Web Resources
+Laravel 9 - https://laravel.com/docs/9.x
+Vue 3 - https://vuejs.org/guide/introduction.html
+Inertia JS - https://inertiajs.com/
+Composer - https://getcomposer.org
+Node JS - https://nodejs.org/en
+PHP - https://www.php.net
+Apache Web Server - https://www.apache.org/
+MYSQL - https://www.mysql.com/
+Beyondco web sockets - https://beyondco.de/docs/laravel-websockets/getting-started/introduction
+Laravel Horizon - https://laravel.com/docs/9.x/horizon
+Laravel Redis - https://laravel.com/docs/9.x/redis
+API Layer Market Data - https://apilayer.com/marketplace/description/exchangerates_data-api
+
+
