@@ -1,29 +1,30 @@
 <?php
 
-function year()
+function getLastTwelveEndOfMonthDatesBasedOnSelectedDate($selected_date=null): array
 {
-    $today = \Carbon\Carbon::now();
+    $today = $selected_date ?? \Carbon\Carbon::now();
     for ($i = 1; $i < 13; $i++){
-
         $year[] =  \Carbon\Carbon::parse($today)->subMonth($i)->endOfMonth()->format('Y-m-d');
     }
 
     return $year;
 }
 
-function week()
+function getLast6MonthsEndOfWeekDatesBasedOnSelectedDate($selected_date): array
 {
+    $today = $selected_date ?? \Carbon\Carbon::now();
     for ($i = 1; $i < 25; $i++){
-        $week[] =  \Carbon\Carbon::now()->subWeek($i)->endOfWeek()->format('Y-m-d');
+        $week[] =  \Carbon\Carbon::parse($selected_date)->subWeek($i)->endOfWeek()->format('Y-m-d');
     }
 
     return $week;
 }
 
-function day()
+function getLast30DaysDatesBasedOnSelectedDate($selected_date=null): array
 {
+    $today = $selected_date ?? \Carbon\Carbon::now();
     for ($i = 0; $i < 30; $i++){
-        $day[] = \Carbon\Carbon::now()->subWeekDay($i)->format('Y-m-d');
+        $day[] = \Carbon\Carbon::parse($today)->subWeekDay($i)->format('Y-m-d');
     }
 
     return $day;
