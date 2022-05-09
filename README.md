@@ -99,4 +99,10 @@ Laravel Redis - https://laravel.com/docs/9.x/redis
 API Layer Market Data - https://apilayer.com/marketplace/description/exchangerates_data-api
 ```
 
+### Todos, Issues
+The website can always be updated and enhanced. The following items can be enhanced on the system:
 
+1. When implementing the curl request to gather currency data based on a date range, I initially implemented it by querying a single date. I should have implemented it using the time series where it will get currency data based on a date range, by supplying a start date and end date. This will reduce the number of requests made. Performing this type of request will return all currency date between the two date ranges. I will then need to pluck out the dates that I require and store them in the database.
+2. Ran out of requests in the free account so I subscribed to a plan and the api continues to error staing I must upgrade.  Contacted support, no response yet. Received an email stating that I have been upgraded, but I can't make any requests
+3. Implementing laravel dusk test, was receiving the following error: ```Facebook\WebDriver\Exception\UnknownErrorException : unknown error: net::ERR_ADDRESS_UNREACHABLE
+  (Session info: headless chrome=101.0.4951.54)```
