@@ -5,7 +5,7 @@
 
     <h1 class="text-3xl">Report</h1>
     <div>
-        <div class="mt-10">
+        <div class="m-3">
             <div class="border-r border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white p-4 flex flex-col justify-between leading-normal rounded-lg">
                 <form @submit.prevent="submit" id="currency-convertor">
 
@@ -50,7 +50,7 @@
     </div>
 
     <div>
-        <div class="mt-10">
+        <div class="mt-10" v-if="reports.length > 0">
             <label
                 class="block mb-2 uppercase font-bold text-xs text-gray-700">
                 Your saved reports
@@ -96,7 +96,7 @@
                                                 </a>
                                             </div>
                                             <div>
-                                                <a :href="'/report/show/'+report.id+'?show=chart'">
+                                                <a :href="'/report/chart/'+report.id">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                         <title>View Chart</title>
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -104,13 +104,8 @@
                                                 </a>
                                             </div>
                                         </div>
-
-
-
                                     </td>
                                 </tr>
-
-
                                 </tbody>
                             </table>
                         </div>
@@ -160,7 +155,6 @@ export default {
             if (form.currencies_selected.length === 0) {
                 this.error = "A currency must be selected";
             } else {
-                console.log('submit form')
                 this.success = 'Your report is currently being generated, it will be completed shortly';
                 Inertia.post('/report/store/'+usePage().props.value.auth.user.id, form)
             }

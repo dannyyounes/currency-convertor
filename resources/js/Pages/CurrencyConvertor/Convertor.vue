@@ -108,6 +108,10 @@ export default {
                     }
                 })
                 .then(response => {
+                    if (response.data.message){
+                        this.error = response.data.message
+                    }
+
                     let rates = response.data.rates
                     this.rates = Object.keys(rates).map(key => {
                         return {

@@ -6,7 +6,7 @@
     <h1 class="text-3xl">Report Display</h1>
 
     <div class="mt-5">
-        Price display for base currency {{ report.base }} against {{ report.symbol }}<p> <span v-text="showPeriodText(report.period)"></span></p>
+        <span v-text="showPeriodText(report.period)"></span> price display for {{ report.base }} against {{ report.symbol }}
     </div>
 
     <div class="flex flex-col">

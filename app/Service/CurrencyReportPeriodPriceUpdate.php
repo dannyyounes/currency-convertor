@@ -29,8 +29,10 @@ class CurrencyReportPeriodPriceUpdate
         $method_name = self::LOOKUP[$this->report->period];
         $this->pending = $method_name();
         $this->datesToProcess = extractDateForPriceNotReceivedYet($this->dataReceivedDates, $this->pending);
-        $this->process();
-        $this->updateStatus('completed');
+        if ($this->process()) {
+            $this->updateStatus('completed');
+        }
+
     }
 
     protected function process()
@@ -38,12 +40,17 @@ class CurrencyReportPeriodPriceUpdate
         if (sizeof($this->datesToProcess) > 0) {
             foreach ($this->datesToProcess as $date) {
                 $data = ExchangeRatesDataApi::getPriceByDate($date, $this->report->symbol);
-                if ($data->success) {
-                    $this->report->storePriceData($this->report->symbol, $date, $data);
+
+                dd($data);
+                if (!$data->success) {
+                    return false;
                 }
+
+                $this->report->storePriceData($this->report->symbol, $date, $data);
             }
         }
 
+        return true;
     }
 
     protected function updateStatus($status)

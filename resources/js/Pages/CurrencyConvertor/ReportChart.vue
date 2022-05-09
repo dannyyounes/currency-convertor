@@ -1,4 +1,7 @@
 <template>
+    <h1 class="text-3xl">Report Chart</h1>
+
+    <div class="mt-2 mb-2"><span v-text="showPeriodText(report.period)"></span> chart of {{ report.base }} against {{ report.symbol }}</div>
     <Chart
         :size="{ width: 500, height: 420 }"
         :data="data"
@@ -27,9 +30,11 @@
 import { defineComponent, ref } from 'vue'
 import { Chart, Grid, Line } from 'vue3-charts'
 import { usePage } from '@inertiajs/inertia-vue3'
+import CurrencyMixin from "../../Mixins/currency";
 
 export default defineComponent({
     name: 'LineChart',
+    mixins: [CurrencyMixin],
     components: { Chart, Grid, Line },
     props: {
         report: {
@@ -58,6 +63,10 @@ export default defineComponent({
             right: 20,
             bottom: 0
         })
+        const size = ref({
+            width: 900,
+            height: 900
+        })
         const axis = ref({
             primary: {
                 type: 'band',
@@ -72,14 +81,12 @@ export default defineComponent({
                 ticks: 8
             }
         })
-        return { data, direction, margin, axis }
+        return { data, direction, margin, axis, size }
     }
 })
 
 </script>
 
 <style>
-#app {
-    color: #2ecc71
-}
+
 </style>

@@ -40,28 +40,36 @@ class ReportController extends Controller
 
         $currencyReport->load('currency_report_data');
 
+        return Inertia::render('CurrencyConvertor/ReportDisplay', [
+            'report' => $currencyReport,
+        ]);
+    }
 
-        if ($request->show === "chart"){
-            $price_data = $currencyReport->currency_report_data->pluck('price', 'price_at');
+    public function chart(Request $request, CurrencyReport $currencyReport)
+    {
+        abort_if($currencyReport->user_id !== Auth::id(), 404);
 
-            foreach ($price_data as $date => $price) {
-                $chart_data[] = [
-                    'date' => Carbon::parse($date)->format('M y'),
-                    'price' => $price
-                ];
-            }
+        $currencyReport->load('currency_report_data');
 
-            $max_price = $currencyReport->currency_report_data->max('price');
-            $min_price = $currencyReport->currency_report_data->min('price');
+        $price_data = $currencyReport->currency_report_data->pluck('price', 'price_at');
 
-            return Inertia::render('CurrencyConvertor/ReportChart', [
-                'chart_data' => $chart_data,
-                'min_price' => $min_price,
-                'max_price' => $max_price,
-                'report' => $currencyReport
-            ]);
+        foreach ($price_data as $date => $price) {
+            $chart_data[] = [
+                'date' => Carbon::parse($date)->format('M y'),
+                'price' => $price
+            ];
         }
 
-        return Inertia::render('CurrencyConvertor/ReportDisplay', ['report' => $currencyReport]);
+        $max_price = floatval($currencyReport->currency_report_data->max('price'));
+        $min_price = floatval($currencyReport->currency_report_data->min('price'));
+
+        return Inertia::render('CurrencyConvertor/ReportChart', [
+            'chart_data' => $chart_data,
+            'min_price' => $min_price,
+            'max_price' => $max_price,
+            'report' => $currencyReport
+        ]);
+
+
     }
 }

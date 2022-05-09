@@ -17,7 +17,6 @@ class CurrencyConvertorController extends Controller
 
     public function show(Request $request)
     {
-        //todo validate request
         $symbols = implode(",", $request->data['currencies_selected']);
         $convert = ExchangeRatesDataApi::getLatestPrice($symbols);
 

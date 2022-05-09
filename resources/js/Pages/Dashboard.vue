@@ -3,16 +3,10 @@
         <title>Currency Convertor</title>
     </Head>
 
-    <div class="grid grid-cols-2 inline-gri gap-4">
-        <div class="px-4">
-            <Convertor />
-        </div>
-        <div class="bg-gray-200 px-4 rounded-lg">
-            <Report :reports="reports"/>
-        </div>
-
+    <div class="flex">
+        <div class="w-2/5 px-4"><Convertor /></div>
+        <div class="w-3/5 px-4 bg-gray-200 px-4 rounded-lg"><Report :reports="reports"/></div>
     </div>
-
 
 </template>
 
