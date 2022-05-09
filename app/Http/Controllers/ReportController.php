@@ -34,7 +34,7 @@ class ReportController extends Controller
 
     }
 
-    public function show(Request $request, CurrencyReport $currencyReport)
+    public function show(CurrencyReport $currencyReport)
     {
         abort_if($currencyReport->user_id !== Auth::id(), 404);
 
@@ -45,7 +45,7 @@ class ReportController extends Controller
         ]);
     }
 
-    public function chart(Request $request, CurrencyReport $currencyReport)
+    public function chart(CurrencyReport $currencyReport)
     {
         abort_if($currencyReport->user_id !== Auth::id(), 404);
 
@@ -69,7 +69,14 @@ class ReportController extends Controller
             'max_price' => $max_price,
             'report' => $currencyReport
         ]);
+    }
 
+    public function destroy(CurrencyReport $currencyReport)
+    {
+        abort_if($currencyReport->user_id !== Auth::id(), 404);
 
+        $currencyReport->delete();
+
+        return Redirect::route('dashboard');
     }
 }

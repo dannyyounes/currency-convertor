@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/report/show/{currencyReport}', [ReportController::class, 'show'])->name('report.show');
     Route::get('/report/chart/{currencyReport}', [ReportController::class, 'chart'])->name('report.show');
     Route::post('/report/store/{user}', [ReportController::class, 'store'])->name('report.store');
+    Route::delete('/report/{currencyReport}', [ReportController::class, 'destroy'])->name('report.destroy');
 
     Route::resource('report', ReportController::class);
 });
