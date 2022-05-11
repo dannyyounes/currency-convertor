@@ -41,7 +41,6 @@ class CurrencyReportPeriodPriceUpdate
             foreach ($this->datesToProcess as $date) {
                 $data = ExchangeRatesDataApi::getPriceByDate($date, $this->report->symbol);
 
-                dd($data);
                 if (!$data->success) {
                     return false;
                 }
