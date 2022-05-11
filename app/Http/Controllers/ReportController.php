@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Response;
 
 class ReportController extends Controller
 {
@@ -36,7 +37,7 @@ class ReportController extends Controller
 
     public function show(CurrencyReport $currencyReport)
     {
-        abort_if($currencyReport->user_id !== Auth::id(), 404);
+        abort_if($currencyReport->user_id !== Auth::id(), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $currencyReport->load('currency_report_data');
 
@@ -47,7 +48,7 @@ class ReportController extends Controller
 
     public function chart(CurrencyReport $currencyReport)
     {
-        abort_if($currencyReport->user_id !== Auth::id(), 404);
+        abort_if($currencyReport->user_id !== Auth::id(), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $currencyReport->load('currency_report_data');
 
@@ -73,7 +74,7 @@ class ReportController extends Controller
 
     public function destroy(CurrencyReport $currencyReport)
     {
-        abort_if($currencyReport->user_id !== Auth::id(), 404);
+        abort_if($currencyReport->user_id !== Auth::id(), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $currencyReport->delete();
 

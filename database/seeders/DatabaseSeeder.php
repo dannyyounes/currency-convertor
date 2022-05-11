@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\CurrencyReport;
+use App\Models\CurrencyReportData;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Faker\Generator as Faker;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,8 +15,22 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-         \App\Models\User::factory(1)->create();
+         User::factory(1)->create();
+
+         CurrencyReport::factory(1)->create([
+             'user_id' => User::latest()->first()->id
+         ]);
+
+         $months = getLastTwelveEndOfMonthDatesBasedOnSelectedDate();
+
+         foreach ($months as $month) {
+             CurrencyReportData::factory(1)->create([
+                 'price_at' => $month,
+                 'price' => $faker->randomFloat(5),
+                 'currency_report_id' => CurrencyReport::latest()->first()->id
+             ]);
+         }
     }
 }

@@ -31,6 +31,13 @@ class DashboardTest extends TestCase
                     ->where('status', null)
                 )
                 ->has('errors')
+            )
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('Currency Convertor')
+                ->has('data', fn (Assert $page) => $page
+                    ->where('name', $user->first_name .' '.$user->last_name)
+                )
+
             );
     }
 }
