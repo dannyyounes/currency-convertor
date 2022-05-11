@@ -19,6 +19,14 @@ class ReportTest extends TestCase
 {
     use RefreshDatabase, DatabaseMigrations;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed('DatabaseSeeder');
+        User::factory(5)->create();
+    }
+
     /** @test */
     public function user_can_store_report_request_and_job_is_pushed()
     {
@@ -53,7 +61,6 @@ class ReportTest extends TestCase
     /** @test */
     public function can_delete_currency_report_data()
     {
-        $this->seed('DatabaseSeeder');
         $user = User::latest()->first();
 
         $this->actingAs($user);
@@ -67,7 +74,7 @@ class ReportTest extends TestCase
             'symbol' => 'aud',
             'period' => 12,
             'status' => 'pending',
-            'user_id' => '1'
+            'user_id' => 1
         ]);
 
         $this->assertDatabaseMissing('currency_report_data', [
@@ -78,21 +85,13 @@ class ReportTest extends TestCase
     /** @test */
     public function user_cannot_delete_another_users_currency_report_data()
     {
-        $this->seed('DatabaseSeeder');
-        User::factory(5)->create([
-
-        ]);
-
         $user = User::inRandomOrder()->whereNot('id', 1)->first();
 
         $this->actingAs($user);
-
-
 
         $currency_report = CurrencyReport::with('currency_report_data')->first();
 
         $this->delete('report/'.$currency_report->id)
             ->assertStatus(403);
     }
-
 }

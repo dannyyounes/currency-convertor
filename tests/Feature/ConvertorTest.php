@@ -13,16 +13,12 @@ class ConvertorTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function dashboard_props()
+    public function currency_convertor_props()
     {
         $user = User::factory()->create();
 
         $this->actingAs($user);
 
-        $this->get('/')
-            ->assertInertia(fn (Assert $page) => $page
-                ->component('Currency Convertor')
-                ->has('currencies')
-            );
+
     }
 }
