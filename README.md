@@ -32,7 +32,7 @@ The next step is to setup the database tables. Run the following command from th
 `php artisan migrate`
 
 ### Step 4: Sign up to Market Data Api and Setup
-To perform currency conversions, we use the website API Layer. We use either Exchanges Rates Data API or Fixer API. You may sign up for free for this service. Simply copy your api key from your account settings and place it into the .env
+To perform currency conversions, we use the website API Layer. We use either Exchanges Rates Data API or Fixer API. You may sign up for free for this service. Simply copy your api key from your account settings and place it into the .env. Currently, you have two choices either the Exchange rates data api (ExchangeRatesDataApi) or Fixer api (FixerApi). Assign to CURRENCy_DATA_APP the one which you are using.
 
 Add the following configuration:
 
@@ -101,7 +101,9 @@ MYSQL - https://www.mysql.com/
 Beyondco web sockets - https://beyondco.de/docs/laravel-websockets/getting-started/introduction
 Laravel Horizon - https://laravel.com/docs/9.x/horizon
 Laravel Redis - https://laravel.com/docs/9.x/redis
-API Layer Market Data - https://apilayer.com/marketplace/description/exchangerates_data-api, https://apilayer.com/marketplace/description/fixer-api
+API Layer Market Data
+ - https://apilayer.com/marketplace/description/exchangerates_data-api
+ - https://apilayer.com/marketplace/description/fixer-api
 ```
 
 ### Todos, Issues
