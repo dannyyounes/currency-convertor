@@ -32,11 +32,16 @@ The next step is to setup the database tables. Run the following command from th
 `php artisan migrate`
 
 ### Step 4: Sign up to Market Data Api and Setup
-To perform currency conversions, we use the website API Layer. We specifically use Exchanges Rates Data API https://apilayer.com/marketplace/description/exchangerates_data-api. You may sign up for free for this service. Simply copy your api key from your account settings and place it into the .env
+To perform currency conversions, we use the website API Layer. We use either Exchanges Rates Data API or Fixer API. You may sign up for free for this service. Simply copy your api key from your account settings and place it into the .env
 
 Add the following configuration:
 
-`DATA_EXCHANGE_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx <- Place your key here`
+```
+#CURRENCY_DATA_APP=ExchangeRatesDataApi
+CURRENCY_DATA_APP=FixerApi
+DATA_EXCHANGE_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx <- Place your key here
+```
+
 
 ### Step 5: Start Horizon
 To run jobs in the application, the horizon application will need to be started. If you have supervisord setup, you may use this. The horizon queue will need to be run via Redis, please ensure that you have this setup. https://laravel.com/docs/9.x/redis
@@ -96,13 +101,11 @@ MYSQL - https://www.mysql.com/
 Beyondco web sockets - https://beyondco.de/docs/laravel-websockets/getting-started/introduction
 Laravel Horizon - https://laravel.com/docs/9.x/horizon
 Laravel Redis - https://laravel.com/docs/9.x/redis
-API Layer Market Data - https://apilayer.com/marketplace/description/exchangerates_data-api
+API Layer Market Data - https://apilayer.com/marketplace/description/exchangerates_data-api, https://apilayer.com/marketplace/description/fixer-api
 ```
 
 ### Todos, Issues
 The website can always be updated and enhanced. The following items can be enhanced on the system:
 
-1. When implementing the curl request to gather currency data based on a date range, I initially implemented it by querying a single date. I should have implemented it using the time series where it will get currency data based on a date range, by supplying a start date and end date. This will reduce the number of requests made. Performing this type of request will return all currency date between the two date ranges. I will then need to pluck out the dates that I require and store them in the database.
-2. Ran out of requests in the free account so I subscribed to a plan and the api continues to error staing I must upgrade.  Contacted support, no response yet. Received an email stating that I have been upgraded, but I can't make any requests
-3. Implementing laravel dusk test, was receiving the following error: ```Facebook\WebDriver\Exception\UnknownErrorException : unknown error: net::ERR_ADDRESS_UNREACHABLE
+1. Implementing laravel dusk test, was receiving the following error: ```Facebook\WebDriver\Exception\UnknownErrorException : unknown error: net::ERR_ADDRESS_UNREACHABLE
   (Session info: headless chrome=101.0.4951.54)```
