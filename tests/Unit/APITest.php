@@ -3,17 +3,25 @@
 namespace Tests\Unit;
 
 use App\Service\Api\ExchangeRatesDataApi;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class APITest extends TestCase
 {
+    public function setUp():void
+    {
+        parent::setUp();
+
+        $currency_data_app = "App\\Service\\Api\\" . config('currency.app');
+        $this->api = forward_static_call([$currency_data_app,'init']);
+    }
+
     /** @test */
     public function can_retrieve_currency_conversion_price_for_a_single_currency()
     {
         $currency = 'AUD';
         $base = 'USD';
 
-        $conversion = ExchangeRatesDataApi::getLatestPrice($currency, $base);
+        $conversion = $this->api->getLatestPrice($currency, $base);
 
         $this->assertTrue($conversion->success, true);
         $this->assertTrue($conversion->base === $base, true);
@@ -27,7 +35,7 @@ class APITest extends TestCase
         $currency = 'AUD,EUR';
         $base = 'USD';
 
-        $conversion = ExchangeRatesDataApi::getLatestPrice($currency, $base);
+        $conversion = $this->api->getLatestPrice($currency, $base);
 
         $currencies = explode(",", $currency);
 
@@ -46,7 +54,7 @@ class APITest extends TestCase
         $base = 'USD';
         $date = '2020-05-16';
 
-        $conversion = ExchangeRatesDataApi::getPriceByDate($date, $currency, $base);
+        $conversion = $this->api->getPriceByDate($date, $currency, $base);
 
         $this->assertTrue($conversion->success, true);
         $this->assertNotNull($conversion->rates->{$currency});
@@ -65,7 +73,7 @@ class APITest extends TestCase
         $currency = 'AUD';
         $base = 'USD';
 
-        $conversion = ExchangeRatesDataApi::getPriceForASeriesOfDates($start_date, $end_date, $currency, $base);
+        $conversion = $this->api->getPriceForASeriesOfDates($start_date, $end_date, $currency, $base);
 
         $this->assertTrue($conversion->success, true);
         $this->assertTrue($conversion->start_date === $start_date, true);
