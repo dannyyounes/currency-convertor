@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('currency_report_id')->index();
             $table->date('price_at');
-            $table->string('price', '10');
+            $table->string('price', '50');
             $table->timestamps();
 
             $table->foreign('currency_report_id')->references('id')->on('currency_reports')->cascadeOnDelete();

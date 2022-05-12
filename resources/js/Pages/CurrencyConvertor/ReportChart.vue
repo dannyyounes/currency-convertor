@@ -10,16 +10,16 @@
         :axis="axis">
         <template #layers>
             <Grid strokeDasharray="2,2" />
-            <Line :dataKeys="['date', 'price']" />
+            <Line :dataKeys="['date', 'price']" :lineStyle="{ stroke: 'red' }" type="natural" />
         </template>
 
         <template #widgets>
             <Tooltip
                 borderColor="#000"
                 :config="{
-          date: { hide: false },
-          price: { label: 'Price', color: 'red' },
-        }"
+                  date: { label: 'Date', color: 'red' },
+                  price: { label: 'Price', color: 'red' },
+                }"
             />
         </template>
     </Chart>
