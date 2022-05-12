@@ -26,9 +26,9 @@ class CurrencyReportPeriodPriceUpdate
     {
         $this->updateStatus('pending');
         $this->dataReceivedDates = $this->report->currency_report_data()->pluck('price_at')->toArray();
-        $method_name = self::LOOKUP[$this->report->period];
-        $this->pending = $method_name();
+        $this->pending = $this->getLookupMethod()();
         $this->datesToProcess = extractDateForPriceNotReceivedYet($this->dataReceivedDates, $this->pending);
+
         if ($this->process()) {
             $this->updateStatus('completed');
         }
@@ -38,18 +38,40 @@ class CurrencyReportPeriodPriceUpdate
     protected function process()
     {
         if (sizeof($this->datesToProcess) > 0) {
-            foreach ($this->datesToProcess as $date) {
-                $data = ExchangeRatesDataApi::getPriceByDate($date, $this->report->symbol);
+            $data = $this->getData();
 
-                if (!$data->success) {
-                    return false;
-                }
-
-                $this->report->storePriceData($this->report->symbol, $date, $data);
+            if (!$data->success) {
+                return false;
             }
+
+            $this->storeData($data);
         }
 
         return true;
+    }
+
+    protected function getLookupMethod()
+    {
+        return self::LOOKUP[$this->report->period];
+    }
+
+    protected function storeData($data)
+    {
+        foreach ($data->rates as $date => $rate){
+            if (in_array($date, $this->datesToProcess)) {
+                $this->report->storePriceData($date, $rate->{$this->report->symbol});
+            }
+        }
+    }
+
+    protected function getData()
+    {
+        $start_date = end($this->datesToProcess);
+        $end_date = reset($this->datesToProcess);
+
+        $currency_data_app = "App\\Service\\Api\\" . config('currency.app');
+        $api = forward_static_call([$currency_data_app,'init']);
+        return $api->getPriceForASeriesOfDates($start_date, $end_date, $this->report->symbol, $this->report->base);
     }
 
     protected function updateStatus($status)

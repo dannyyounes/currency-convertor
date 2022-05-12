@@ -19,7 +19,6 @@
         </include>
     </coverage>
     <php>
-        <env name="DATA_EXCHANGE_API_KEY" value="EGxxxTJ2x1SIN4O98RAp9VzVR4VLj0Iv" force="true" />
         <server name="APP_ENV" value="testing"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>

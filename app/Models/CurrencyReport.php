@@ -26,13 +26,11 @@ class CurrencyReport extends Model
         return $this->hasMany(CurrencyReportData::class)->orderBy('price_at', 'asc');
     }
 
-    public function storePriceData($symbol, $date, $data)
+    public function storePriceData($date, $price)
     {
-        if ($data->success === true){
-            $this->currency_report_data()->firstOrCreate([
-                'price_at' => $date,
-                'price' => $data->rates->{$symbol}
-            ]);
-        }
+        $this->currency_report_data()->firstOrCreate([
+            'price_at' => $date,
+            'price' => $price
+        ]);
     }
 }

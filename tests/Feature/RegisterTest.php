@@ -56,6 +56,7 @@ class RegisterTest extends TestCase
     public function error_occurs_when_email_is_taken()
     {
         $user = User::factory()->create([
+            'email' => 'dannyyounes@gmail.com',
             'password' => $password = Hash::make('password'),
         ]);
 
@@ -64,7 +65,7 @@ class RegisterTest extends TestCase
             'last_name' => $this->faker->lastName,
             'email' => 'dannyyounes@gmail.com',
             'password' => 'password',
-            'password_confirmation' => 'password1',
+            'password_confirmation' => 'password',
         ]);
 
         $response->assertSessionHasErrors(['email']);
